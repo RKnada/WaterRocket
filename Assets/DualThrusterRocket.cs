@@ -49,7 +49,6 @@ public class DualThrusterRocket : MonoBehaviour
             if (upperFuelCapacity > 0)
             {
                 SecondaryThrust();
-                Debug.Log("상부연료통 분사 - 이차 역추진");
             }
         }
 
@@ -70,20 +69,16 @@ public class DualThrusterRocket : MonoBehaviour
 
     private void PrimaryThrust()
     {
-        Vector3 primaryThrust = Vector3.up * CalculateThrustForce();
-        rocketRigidbody.AddForce(primaryThrust, ForceMode.Impulse);
+        GetComponent<Rigidbody>().velocity = new Vector3(0, CalculateThrustForce(), 0);
 
         pThrust = true;
-
     }
 
     private void SecondaryThrust()
     {
-        Vector3 secondaryThrust = Vector3.up * CalculateSecondary();
-        rocketRigidbody.AddForce(secondaryThrust, ForceMode.Impulse);
+        GetComponent<Rigidbody>().velocity = new Vector3(0, CalculateSecondary(), 0);
 
         sThrust = true;
-        upperFuelCapacity += -1f;
     }
 
     private void UpdatePhysics()
